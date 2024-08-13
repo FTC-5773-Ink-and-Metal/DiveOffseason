@@ -20,45 +20,37 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 @Config
-@Autonomous(name = "AutoExperiment", group = "autonomous")
+@Autonomous(name = "RNCAuto", group = "autonomous")
 
-public class AutoExperiment extends LinearOpMode {
+
+public class RNCAuto extends LinearOpMode {
     public void runOpMode() {
         // instantiate your MecanumDrive at a particular pose.
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, Math.toRadians(0)));
 
         Action trajectoryAction1;
-        Action trajectoryAction2;
 
         trajectoryAction1 = drive.actionBuilder(drive.pose)
-                .lineToYSplineHeading(33, Math.toRadians(0))
+                .lineToY(33)
                 .waitSeconds(2)
-                .setTangent(Math.toRadians(90))
-                .lineToY(48)
-                .setTangent(Math.toRadians(0))
-                .lineToX(32)
-                .strafeTo(new Vector2d(44.5, 30))
-                .turn(Math.toRadians(180))
-                .lineToX(47.5)
-                .waitSeconds(3)
+//                .setTangent(Math.toRadians(90))
+//                .lineToY(48)
+//                .setTangent(Math.toRadians(0))
+//                .lineToX(32)
+//                .strafeTo(new Vector2d(44.5, 30))
+//                .turn(Math.toRadians(180))
+//                .lineToX(47.5)
+//                .waitSeconds(3)
                 .build();
-
-        trajectoryAction2 = drive.actionBuilder(drive.pose)
-                .splineToSplineHeading(new Pose2d(0,24,Math.toRadians(90)),Math.toRadians(0))
-                .splineToSplineHeading(new Pose2d(24,0,Math.toRadians(0)),Math.toRadians(270))
-                .splineToSplineHeading(new Pose2d(0,-24,Math.toRadians(270)),Math.toRadians(180))
-                .splineToSplineHeading(new Pose2d(-24,0,Math.toRadians(180)),Math.toRadians(90))
-                .build();
-
 
         waitForStart();
         if (isStopRequested()) return;
 
         Actions.runBlocking(
                 new SequentialAction(
-                        //trajectoryAction1
-                        trajectoryAction2
+                        trajectoryAction1
                 )
         );
     }
+
 }
